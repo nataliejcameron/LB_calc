@@ -3,6 +3,9 @@
 
 
 ui <- fluidPage(
+  
+  useShinyFeedback(), # for error messages if putting in BMI/age outwith range
+  
   titlePanel("Calculator for estimated chance of natural pregnancy leading to live birth, for couples diagnosed with infertility"),
   sidebarLayout(
     sidebarPanel(
@@ -31,8 +34,8 @@ ui <- fluidPage(
         "BMIWin",
         "Female BMI:",
         value = 25,
-        min = 11,
-        max = 42.5,
+        min = 16,
+        max = 50,
         step = 0.1
       ),
       # Radio buttons for binary inputs.
@@ -98,8 +101,11 @@ ui <- fluidPage(
           "These estimates are based on the patient data we used when making this model, and represents the outcomes of couples with similar characteristics to those you have entered into the calculator. 
           7086 couples were included in the original study, who registered at a single tertiary fertility centre between 1998-2015.",
           br(),
-          "As such, the estimate may not represent your experience. ",
-          "This is particularly important in characteristics where we had fewer patients to base our estimates on, such as the higher age groups. ",
+          tags$strong("As such, the estimate may not represent your experience. "),
+          "This is particularly important in characteristics where we had fewer patients to base our estimates on, such as the",
+          tags$strong("higher age groups, or people with very low or very high BMI."),
+          br(),
+          "It is important to note that in women with very low BMI the accuracy of predictions may be low, as research shows there is a lower chance of pregnancy in this group due to ovulatory problems.",
           br(), br(),
           "We would recommend to interpret these results with caution and alongside discussions with your medical team about your individual fertility journey."
         )

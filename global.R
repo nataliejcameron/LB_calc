@@ -9,6 +9,7 @@ pacman::p_load(
   dplyr,
   shiny,
   ggplot2,
+  shinyFeedback, # warning labels
   scales #for formatting plot labels
 )
 

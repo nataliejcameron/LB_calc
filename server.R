@@ -6,8 +6,45 @@ server <- function(input, output) {
   # Use reactiveVal to create a container for calculator result.
   container_risk <- reactiveVal(NULL)
   
+  # observeEvent when the user changes the BMI input
+  observeEvent(input$BMIWin, {
+    # feedbackDanger shows a red error message if outwith range
+    shinyFeedback::feedbackDanger(
+      inputId = "BMIWin", 
+      show = isTruthy(input$BMIWin) && (input$BMIWin < 15 || input$BMIWin > 50),
+      text = "Please enter a BMI between 15 and 50."
+    )
+  })
+  
+  # observeEvent when the user changes the Age input
+  observeEvent(input$FAge, {
+    # feedbackDanger shows a red error message if outwith range
+    shinyFeedback::feedbackDanger(
+      inputId = "FAge", 
+      show = isTruthy(input$FAge) && (input$FAge < 18 || input$FAge > 49),
+      text = "Please enter an age between 18 and 49."
+    )
+  })
+  
+  # observeEvent when the user changes the Duration input
+  observeEvent(input$duryrsWin, {
+    # feedbackDanger shows a red error message if outwith range
+    shinyFeedback::feedbackDanger(
+      inputId = "duryrsWin", 
+      show = isTruthy(input$duryrsWin) && (input$duryrsWin < 0 || input$duryrsWin > 10),
+      text = "Please enter an duration between 0 and 10 years."
+    )
+  })
+  
   # When button clicked, run calculation and store the result
   observeEvent(input$calculate, {
+    
+    # Check inputs
+    
+      req(input$BMIWin >= 15 && input$BMIWin <= 50)
+      req(input$FAge >= 18 && input$FAge <= 49)
+    
+
     predrisk <- riskcalc(
       FirstRegYear = 2015, #set to latest year from original study
       FAge = input$FAge,
